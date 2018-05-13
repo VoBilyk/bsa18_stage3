@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ParkingEmulator
 {
-    class Transaction
+    public class Transaction
     {
         public Transaction(Guid carId, decimal writtenOffMoney)
         {

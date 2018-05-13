@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ParkingEmulator
 {
-    static class Settings
+    public static class Settings
     {
         static public readonly int timeout = 3;
         static public readonly int parkingSpace = 5;

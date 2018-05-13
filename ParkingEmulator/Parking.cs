@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace ParkingEmulator
 {
-    class Parking
+    public class Parking
     {
         private static readonly Lazy<Parking> lazy = new Lazy<Parking>(() => new Parking());
 

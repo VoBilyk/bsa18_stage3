@@ -2,7 +2,7 @@
 
 namespace ParkingEmulator
 {
-    class Car
+    public class Car
     {
         public Car(CarType type, decimal balance = 0)
         {
