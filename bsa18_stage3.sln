@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingEmulator", "ParkingEmulator\ParkingEmulator.csproj", "{9C36F768-1B10-49D0-9C88-86F54C3758BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingEmulatorWebApi", "ParkingEmulatorWebApi\ParkingEmulatorWebApi.csproj", "{5875D793-5425-4869-9D32-A5FB7709B929}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9C36F768-1B10-49D0-9C88-86F54C3758BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C36F768-1B10-49D0-9C88-86F54C3758BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C36F768-1B10-49D0-9C88-86F54C3758BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5875D793-5425-4869-9D32-A5FB7709B929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5875D793-5425-4869-9D32-A5FB7709B929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5875D793-5425-4869-9D32-A5FB7709B929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5875D793-5425-4869-9D32-A5FB7709B929}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
