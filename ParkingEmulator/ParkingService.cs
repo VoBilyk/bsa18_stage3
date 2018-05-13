@@ -38,7 +38,7 @@ namespace ParkingEmulator
                 return "Error, file Transactions.log not found";
             }
 
-            return "Transactions.log";
+            return log;
         }
 
         static public IEnumerable<Transaction> GetTransactionForLastMinute()
