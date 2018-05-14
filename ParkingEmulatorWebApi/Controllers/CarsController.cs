@@ -49,20 +49,22 @@ namespace ParkingEmulatorWebApi.Controllers
             return Ok();
         }
 
-        [HttpPost("{type}/{value?}")]
-        public IActionResult Post(string type, decimal value = 0)
+
+        [HttpPost]
+        public IActionResult Post([FromBody]Models.CarBodyCreator carCreator)
         {
-            CarType carType;
-            try
+            if (carCreator == null)
             {
-                carType = Enum.Parse<CarType>(type);
+                return BadRequest("");
             }
-            catch (Exception)
+
+
+            if(!Enum.IsDefined(typeof(CarType), carCreator.CarType))
             {
                 return BadRequest("Error, Wrong car type");
             }
 
-            var car = new Car(carType, value);
+            var car = new Car(carCreator.CarType, carCreator.Balance);
 
             try
             {
