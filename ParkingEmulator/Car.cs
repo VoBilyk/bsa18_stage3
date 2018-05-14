@@ -26,5 +26,12 @@ namespace ParkingEmulator
         {
             Balance -= value;
         }
+
+        public override string ToString()
+        {
+            return String.Format($"Id: {Id}, " +
+                                 $"Type: {Type}, " +
+                                 $"Balance {Balance}");
+        }
     }
 }
