@@ -12,36 +12,64 @@ namespace ParkingEmulatorWebApi.Controllers
     [Route("api/Cars")]
     public class CarsController : Controller
     {
-        // GET: api/Cars
         [HttpGet]
-        public IEnumerable<Car> Get()
+        public IActionResult Get()
         {
-            return Parking.Instance.GetCars;
+            var item = Parking.Instance.GetCars;
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(item);
         }
 
-        // GET: api/Cars/5
         [HttpGet("{id}")]
-        public Car Get(Guid id)
+        public IActionResult Get(Guid id)
         {
-            return Parking.Instance.GetCar(id);
+            var item = Parking.Instance.GetCars.First(c => c.Id == id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(item);
         }
-        
-        // POST: api/Cars
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-        
-        // PUT: api/Cars/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-        
-        // DELETE: api/ApiWithActions/5
+
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(Guid id)
         {
+            try
+            {
+                Parking.Instance.RemoveCar(id);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(ex.Message);
+            }
+
+            return new NoContentResult();
+        }
+
+
+        [HttpPost]
+        public IActionResult Post([FromBody] Car item)
+        {
+            if (item == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                Parking.Instance.AddCar(item);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            return CreatedAtRoute("Get", new { id = item.Id });
+            //return new NoContentResult();
+
+            //return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
         }
     }
 }
