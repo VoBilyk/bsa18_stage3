@@ -12,9 +12,18 @@ namespace ParkingEmulatorWebApi.Controllers
     [Route("api/Cars")]
     public class CarsController : Controller
     {
-        [HttpGet]
+        public void Init()
+        {
+            Parking.Instance.AddCar(new Car(CarType.Passenger, 100));
+            Parking.Instance.AddCar(new Car(CarType.Truck, 250));
+
+            Parking.Instance.AddCar(new Car(CarType.Bus));
+
+        }
+        [HttpGet(Name = "Get")]
         public IActionResult Get()
         {
+            Init();
             var item = Parking.Instance.GetCars;
             if (item == null)
             {
@@ -43,33 +52,51 @@ namespace ParkingEmulatorWebApi.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
 
             return new NoContentResult();
         }
 
 
+        [HttpPost("{type}/{value:decimal}")]
+        public IActionResult Post(string type, decimal value)
+        {
+            CarType carType;
+            try
+            {
+                carType = Enum.Parse<CarType>(type);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Error, Wrong car type");
+            }
+
+            var car = new Car(carType, value);
+            Parking.Instance.AddCar(car);
+
+            return new ObjectResult(car);
+        }
+
         [HttpPost]
-        public IActionResult Post([FromBody] Car item)
+        public IActionResult Post([FromBody]Car item)
         {
             if (item == null)
             {
                 return BadRequest();
             }
 
+            var car = new Car(item.Type, item.Balance);
             try
             {
-                Parking.Instance.AddCar(item);
+                Parking.Instance.AddCar(car);
             }
             catch (InvalidOperationException ex)
             {
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
-            return CreatedAtRoute("Get", new { id = item.Id });
-            //return new NoContentResult();
 
-            //return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
+            return new ObjectResult(car);
         }
     }
 }
