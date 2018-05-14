@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using ParkingEmulator;
 
 
@@ -14,19 +13,21 @@ namespace ParkingEmulatorWebApi.Controllers
     public class ParkingController : Controller
     {
         [HttpGet("[action]")]
-        public async Task<string> FreePlaces() =>
-            await Task.Run(() => JsonConvert.SerializeObject(Parking.Instance.FreeParkingSpace));
-
-        [HttpGet("[action]")]
-        public string AllPlaces()
+        public IActionResult FreePlaces()
         {
-            return Parking.Instance.FreeParkingSpace.ToString();
+            return new ObjectResult(Parking.Instance.FreeParkingSpace);
         }
 
         [HttpGet("[action]")]
-        public string Balance()
+        public IActionResult TotalPlaces()
         {
-            return Parking.Instance.Balance.ToString();
+            return new ObjectResult(Parking.Instance.ParkingSpace);
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult Balance()
+        {
+            return new ObjectResult(Parking.Instance.Balance);
         }
     }
 }
