@@ -14,29 +14,45 @@ namespace ParkingEmulatorWebApi.Controllers
     public class TransactionsController : Controller
     {
         [HttpGet("[action]")]
-        public string LogFIle()
+        public IActionResult LogFIle()
         {
             var file = File(Settings.logFile, "text/plain");
+            return new ObjectResult(file);
+
             // TODO
-            return System.IO.File.ReadAllText(Settings.logFile);
+            //return System.IO.File.ReadAllText(Settings.logFile);
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Transaction> LastMinuteHistory()
+        public IActionResult LastMinuteHistory()
         {
-            return Parking.Instance.GetLastMinuteTransactions;
+            var transactions = Parking.Instance.GetLastMinuteTransactions;
+
+            if (transactions == null)
+            {
+                return new EmptyResult();
+            }
+
+            return new ObjectResult(transactions);
         }
         
         [HttpGet("[action]/{id}")]
-        public IEnumerable<Transaction> LastMinuteHistory(Guid id)
+        public IActionResult LastMinuteHistory(Guid id)
         {
-            return Parking.Instance.GetLastMinuteTransactionsForCar(id);
+            var transactions = Parking.Instance.GetLastMinuteTransactionsForCar(id);
+
+            if (transactions == null)
+            {
+                return new EmptyResult();
+            }
+
+            return new ObjectResult(transactions);
         }
        
         
         // PUT: api/Transacrions/5
-        [HttpPut("{id}")]
-        public IActionResult RefillCarBalance(Guid id, [FromBody]decimal value)
+        [HttpPut("{id}/{value}")]
+        public IActionResult RefillCarBalance(Guid id, decimal value)
         {
             try
             {
