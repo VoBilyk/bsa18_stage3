@@ -10,8 +10,8 @@ using ParkingEmulator;
 namespace ParkingEmulatorWebApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Transacrions")]
-    public class TransacrionsController : Controller
+    [Route("api/[controller]")]
+    public class TransactionsController : Controller
     {
         [HttpGet("[action]")]
         public string LogFIle()
@@ -28,7 +28,7 @@ namespace ParkingEmulatorWebApi.Controllers
         }
         
         [HttpGet("[action]/{id}")]
-        public IEnumerable<Transaction> LastMinuteHistoryForCar(Guid id)
+        public IEnumerable<Transaction> LastMinuteHistory(Guid id)
         {
             return Parking.Instance.GetLastMinuteTransactionsForCar(id);
         }
