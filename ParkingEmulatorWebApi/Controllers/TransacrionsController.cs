@@ -24,31 +24,30 @@ namespace ParkingEmulatorWebApi.Controllers
         [HttpGet("[action]")]
         public IEnumerable<Transaction> LastMinuteHistory()
         {
-            return Parking.Instance.GetTransactionsForLastMinute;
+            return Parking.Instance.GetLastMinuteTransactions;
         }
         
         [HttpGet("[action]/{id}")]
-        public string LastMinuteHistoryForCar(Guid id)
+        public IEnumerable<Transaction> LastMinuteHistoryForCar(Guid id)
         {
-            return "value";
+            return Parking.Instance.GetLastMinuteTransactionsForCar(id);
         }
-        
-        // POST: api/Transacrions
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+       
         
         // PUT: api/Transacrions/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult RefillCarBalance(Guid id, [FromBody]decimal value)
         {
-        }
-        
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            try
+            {
+                Parking.Instance.RefillCarBalance(id, value);
+            }
+            catch (InvalidOperationException)
+            {
+                return BadRequest($"Not found CarId: {id}");
+            }
+
+            return Ok("Success");
         }
     }
 }
