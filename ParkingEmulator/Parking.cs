@@ -29,6 +29,13 @@ namespace ParkingEmulator
         private List<Car> cars;
         private List<Transaction> transactions;
 
+        public IEnumerable<Car> GetCars { get { return cars;  } }
+
+        public Car GetCar(Guid id)
+        {
+            return cars.Find(c => c.Id == id);
+        }
+
 
         public decimal Balance { get; private set; }
 
@@ -68,6 +75,7 @@ namespace ParkingEmulator
                 return cars.Find(c => c.Id == id).Balance;
             }
         }
+
 
         public void AddCar(Car car)
         {

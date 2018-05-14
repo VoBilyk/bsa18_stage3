@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ParkingEmulator;
 
 namespace ParkingEmulatorWebApi.Controllers
 {
@@ -13,16 +14,16 @@ namespace ParkingEmulatorWebApi.Controllers
     {
         // GET: api/Cars
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Car> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Parking.Instance.GetCars;
         }
 
         // GET: api/Cars/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}")]
+        public Car Get(Guid id)
         {
-            return "value";
+            return Parking.Instance.GetCar(id);
         }
         
         // POST: api/Cars
