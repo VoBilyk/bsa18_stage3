@@ -45,7 +45,15 @@ namespace ParkingEmulator
 
         public int FreeParkingSpace { get { return ParkingSpace - cars.Count; } }
 
-        public IEnumerable<Transaction> GetTransactionsForLastMinute { get { return transactions.Where(t => t.DateTime >= DateTime.Now.AddMinutes(-1)); } }
+        public IEnumerable<Transaction> GetLastMinuteTransactions
+        {
+            get { return transactions.Where(t => t.DateTime >= DateTime.Now.AddMinutes(-1)); }
+        }
+
+        public IEnumerable<Transaction> GetLastMinuteTransactionsForCar(Guid id)
+        {
+            return transactions.FindAll(c => c.CarId == id).Where(t => t.DateTime >= DateTime.Now.AddMinutes(-1));
+        }
 
         public decimal RefillCarBalance(Guid id, decimal value)
         {
