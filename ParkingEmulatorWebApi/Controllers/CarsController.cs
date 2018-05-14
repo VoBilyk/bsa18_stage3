@@ -12,18 +12,9 @@ namespace ParkingEmulatorWebApi.Controllers
     [Route("api/Cars")]
     public class CarsController : Controller
     {
-        public void Init()
-        {
-            Parking.Instance.AddCar(new Car(CarType.Passenger, 100));
-            Parking.Instance.AddCar(new Car(CarType.Truck, 250));
-
-            Parking.Instance.AddCar(new Car(CarType.Bus));
-
-        }
-        [HttpGet(Name = "Get")]
+        [HttpGet]
         public IActionResult Get()
         {
-            Init();
             var item = Parking.Instance.GetCars;
             if (item == null)
             {
@@ -55,12 +46,11 @@ namespace ParkingEmulatorWebApi.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return new NoContentResult();
+            return Ok();
         }
 
-
-        [HttpPost("{type}/{value:decimal}")]
-        public IActionResult Post(string type, decimal value)
+        [HttpPost("{type}/{value?}")]
+        public IActionResult Post(string type, decimal value = 0)
         {
             CarType carType;
             try
@@ -73,27 +63,14 @@ namespace ParkingEmulatorWebApi.Controllers
             }
 
             var car = new Car(carType, value);
-            Parking.Instance.AddCar(car);
 
-            return new ObjectResult(car);
-        }
-
-        [HttpPost]
-        public IActionResult Post([FromBody]Car item)
-        {
-            if (item == null)
-            {
-                return BadRequest();
-            }
-
-            var car = new Car(item.Type, item.Balance);
             try
             {
                 Parking.Instance.AddCar(car);
             }
             catch (InvalidOperationException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex);
             }
 
             return new ObjectResult(car);

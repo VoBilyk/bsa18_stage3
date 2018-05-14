@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParkingEmulator;
+using Newtonsoft.Json;
 
 namespace ParkingEmulatorWebApi.Controllers
 {
@@ -16,11 +17,17 @@ namespace ParkingEmulatorWebApi.Controllers
         [HttpGet("[action]")]
         public IActionResult LogFIle()
         {
-            var file = File(Settings.logFile, "text/plain");
-            return new ObjectResult(file);
+            string[] file;
+            try
+            {
+                file = System.IO.File.ReadAllText(Settings.logFile).Split("\r\n");
+            }
+            catch (Exception)
+            {
+                return BadRequest("File error");
+            }
 
-            // TODO
-            //return System.IO.File.ReadAllText(Settings.logFile);
+            return new ObjectResult(file);
         }
 
         [HttpGet("[action]")]
