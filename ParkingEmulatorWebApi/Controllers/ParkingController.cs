@@ -15,19 +15,19 @@ namespace ParkingEmulatorWebApi.Controllers
         [HttpGet("[action]")]
         public IActionResult FreePlaces()
         {
-            return new ObjectResult(Parking.Instance.FreeParkingSpace);
+            return new JsonResult(Parking.Instance.FreeParkingSpace);
         }
 
         [HttpGet("[action]")]
         public IActionResult TotalPlaces()
         {
-            return new ObjectResult(Parking.Instance.ParkingSpace);
+            return new JsonResult(Parking.Instance.ParkingSpace);
         }
 
         [HttpGet("[action]")]
         public IActionResult Balance()
         {
-            return new ObjectResult(Parking.Instance.Balance);
+            return new JsonResult(Parking.Instance.Balance);
         }
     }
 }

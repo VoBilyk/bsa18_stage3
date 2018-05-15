@@ -20,7 +20,8 @@ namespace ParkingEmulatorWebApi.Controllers
             {
                 return NotFound();
             }
-            return new ObjectResult(item);
+
+            return new JsonResult(item);
         }
 
         [HttpGet("{id}")]
@@ -31,7 +32,8 @@ namespace ParkingEmulatorWebApi.Controllers
             {
                 return NotFound();
             }
-            return new ObjectResult(item);
+
+            return new JsonResult(item);
         }
 
         [HttpDelete("{id}")]
@@ -75,7 +77,7 @@ namespace ParkingEmulatorWebApi.Controllers
                 return BadRequest(ex);
             }
 
-            return new ObjectResult(car);
+            return new JsonResult(car);
         }
     }
 }

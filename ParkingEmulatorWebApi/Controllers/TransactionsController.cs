@@ -27,7 +27,7 @@ namespace ParkingEmulatorWebApi.Controllers
                 return BadRequest("File error");
             }
 
-            return new ObjectResult(file);
+            return new JsonResult(file);
         }
 
         [HttpGet("[action]")]
@@ -40,7 +40,7 @@ namespace ParkingEmulatorWebApi.Controllers
                 return new EmptyResult();
             }
 
-            return new ObjectResult(transactions);
+            return new JsonResult(transactions);
         }
         
         [HttpGet("[action]/{id}")]
@@ -53,7 +53,7 @@ namespace ParkingEmulatorWebApi.Controllers
                 return new EmptyResult();
             }
 
-            return new ObjectResult(transactions);
+            return new JsonResult(transactions);
         }
        
         
