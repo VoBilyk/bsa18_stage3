@@ -46,7 +46,7 @@ namespace ParkingEmulatorWebApi.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return Ok();
+            return NoContent();
         }
 
 
